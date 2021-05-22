@@ -62,5 +62,6 @@ int main(int argc, char * argv[]) {
     }
 
     free(instructions);
+    free(file_path);
     return 0;
 }

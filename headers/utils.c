@@ -41,3 +41,16 @@ char * input_string(FILE* fp, size_t initial_size) {
     return realloc(output_string, sizeof(*output_string) * output_length);
 
 }
+
+int count_lines(FILE* fp) {
+    int lines = 0;
+    int next_char;
+    while((EOF != (next_char = fgetc(fp)))) {
+
+        if(next_char == '\n') {
+            lines++;
+        }
+    }
+
+    return lines+1;
+}
