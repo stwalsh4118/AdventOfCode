@@ -47,7 +47,6 @@ char * input_string(FILE* fp, size_t initial_size) {
 int get_floor(char * instructions) {
     int floor = 0;
     char left_parenthesis = '(';
-    char right_parenthesis = ')';
      
     //loop through input
     for(int i = 0; i < strlen(instructions); i++) {
