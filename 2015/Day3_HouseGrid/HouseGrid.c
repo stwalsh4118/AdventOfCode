@@ -4,6 +4,7 @@
 #include <string.h>
 #include "../../headers/utils.h"
 
+//struct to hold x and y values for the houses
 typedef struct {
     int x;
     int y;
@@ -11,8 +12,10 @@ typedef struct {
 
 bool is_house_visited(HOUSE * houses, HOUSE current_house, size_t num_houses) {
 
+    //loop through all of the current visited houses to see if the current house has been visited
     for(int i = 0; i < num_houses; i++) {
         
+        //if the current house is one of the visited houses
         if((houses[i].x == current_house.x) && (houses[i].y == current_house.y)) {
             //printf("House already visited\n");
             return true;
@@ -26,20 +29,18 @@ bool is_house_visited(HOUSE * houses, HOUSE current_house, size_t num_houses) {
 HOUSE *expand_house_array(HOUSE * houses, size_t * num_houses) {
 
     *num_houses = (*num_houses*2);
-    // printf("max number of houses in an array: %zu\n", (SIZE_MAX / sizeof(houses[0])));
-    //printf("expanding house array from %d to %d\n", *num_houses/2,*num_houses);
-    // printf("size of house struct %d\n", sizeof(houses[0]));
 
+    //make house array bigger so we can store more houses
     HOUSE * temp = realloc(houses, sizeof(houses[0])*(*num_houses+1));
     
-    // printf("allocation finished\n");
 
     
     if(temp == NULL) {
-        //printf("Failed to allocate, trying again");
-        //return expand_house_array(houses, num_houses-10);
+
+        //this is where i would put code to deal with the reallocation failing but i kinda dont know what to put
     } else {
-        
+
+        //if allocation was successful, set the pointer for the house array to the new expanded array
         houses = temp;
     }
 
@@ -56,84 +57,91 @@ int get_num_unique_houses(char* directions, HOUSE * houses, size_t num_houses) {
     int x_coordinate = 0;
     int y_coordinate = 0;
 
-    //printf("directions length %d\n", strlen(directions));
-    //printf("at coordinate %d, %d on direction number %d current number of unique houses %d\n", current_house.x, current_house.y, 0, current_houses);
 
+    //loop through all of the directions
     for(int i = 0; i < strlen(directions); i++) {
 
         if(directions[i] == 0) {
             //break;
 
+        //if the directions is "v" (which means down)
         } else if(directions[i] == v) {
+
+            //move the coordinates downwards
             y_coordinate--;
+
+            //set the current house coordinates
             current_house.x = x_coordinate;
             current_house.y = y_coordinate;
 
-            //printf("moving to coordinates %d, %d\n", x_coordinate, y_coordinate);
-
+            //if the house at the current coordinates has not been visited before            
             if(!is_house_visited(houses, current_house, current_houses)) {
+
+                //increase the number of unique visited houses
                 current_houses++;
+
+                //if there are more unique visited houses than what we can hold in our array, expand the array
                 if(current_houses >= num_houses) {
                     houses = expand_house_array(houses, &num_houses);
                 }
-                //printf("adding house at %d, %d\n", x_coordinate, y_coordinate);
+
+                //add the current house to the visited houses array
                 houses[current_houses-1].x = x_coordinate;
                 houses[current_houses-1].y = y_coordinate;
             }
         
+        //if the directions is "<" (which means left)
+        //the rest is the same as above
         } else if(directions[i] == left_arrow) {
             x_coordinate--;
             current_house.x = x_coordinate;
             current_house.y = y_coordinate;
 
-            //printf("moving to coordinates %d, %d\n", x_coordinate, y_coordinate);
 
             if(!is_house_visited(houses, current_house, current_houses)) {
                 current_houses++;
                 if(current_houses >= num_houses) {
                     houses = expand_house_array(houses, &num_houses);
                 }
-                //printf("adding house at %d, %d\n", x_coordinate, y_coordinate);
                 houses[current_houses-1].x = x_coordinate;
                 houses[current_houses-1].y = y_coordinate;
             }
         
+        //if the directions is ">" (which means right)
+        //the rest is the same as above
         } else if(directions[i] == right_arrow) {
             x_coordinate++;
             current_house.x = x_coordinate;
             current_house.y = y_coordinate;
 
-            //printf("moving to coordinates %d, %d\n", x_coordinate, y_coordinate);
 
             if(!is_house_visited(houses, current_house, current_houses)) {
                 current_houses++;
                 if(current_houses >= num_houses) {
                     houses = expand_house_array(houses, &num_houses);
                 }
-                //printf("adding house at %d, %d\n", x_coordinate, y_coordinate);
                 houses[current_houses-1].x = x_coordinate;
                 houses[current_houses-1].y = y_coordinate;
             }
         
+        //if the directions is anything else (which due to the constraints of the input means up since thats the only other symbol that should be in the directions)
+        //the rest is the same as above
         } else {
             y_coordinate++;
             current_house.x = x_coordinate;
             current_house.y = y_coordinate;
 
-            //printf("moving to coordinates %d, %d\n", x_coordinate, y_coordinate);
 
             if(!is_house_visited(houses, current_house, current_houses)) {
                 current_houses++;
                 if(current_houses >= num_houses) {
                     houses = expand_house_array(houses, &num_houses);
                 }
-                //printf("adding house at %d, %d\n", x_coordinate, y_coordinate);
                 houses[current_houses-1].x = x_coordinate;
                 houses[current_houses-1].y = y_coordinate;
             }
         }
 
-        //printf("at coordinate %d, %d on direction number %d current number of unique houses %d\n", current_house.x, current_house.y, i+1, current_houses);
 
     }
     
@@ -143,6 +151,9 @@ int get_num_unique_houses(char* directions, HOUSE * houses, size_t num_houses) {
 }
 
 int get_num_unique_houses_robo(char* directions, HOUSE * houses, size_t num_houses) {
+
+    //all of this is the same as above except every time we read in a direction we switch between changing regular santa's coordinates and robo santa's coordinates
+    //it still checks if the current house that the santa we're focusing on is at has been visited before and adds them like normal
 
     char v = 'v';
     char left_arrow = '<';
@@ -155,13 +166,10 @@ int get_num_unique_houses_robo(char* directions, HOUSE * houses, size_t num_hous
     int robo_y_coordinate = 0;
     bool robo_santa = false;
 
-    //printf("directions length %d\n", strlen(directions));
-    //printf("at coordinate %d, %d on direction number %d current number of unique houses %d\n", current_house.x, current_house.y, 0, current_houses);
 
     for(int i = 0; i < strlen(directions); i++) {
 
         if(directions[i] == 0) {
-            //break;
 
         } else if(directions[i] == v) {
 
@@ -170,24 +178,20 @@ int get_num_unique_houses_robo(char* directions, HOUSE * houses, size_t num_hous
                 current_house.x = x_coordinate;
                 current_house.y = y_coordinate;
                 robo_santa = !robo_santa;
-                //printf("Regular Santa ");
             } else {
                 robo_y_coordinate--;
                 current_house.x = robo_x_coordinate;
                 current_house.y = robo_y_coordinate;
                 robo_santa = !robo_santa;
-                //printf("Robo Santa ");
             }
             
 
-            //printf("moving to coordinates %d, %d\n", current_house.x, current_house.y);
 
             if(!is_house_visited(houses, current_house, current_houses)) {
                 current_houses++;
                 if(current_houses >= num_houses) {
                     houses = expand_house_array(houses, &num_houses);
                 }
-                //printf("adding house at %d, %d\n", current_house.x, current_house.y);
                 houses[current_houses-1].x = current_house.x;
                 houses[current_houses-1].y = current_house.y;
             }
@@ -198,25 +202,21 @@ int get_num_unique_houses_robo(char* directions, HOUSE * houses, size_t num_hous
                 current_house.x = x_coordinate;
                 current_house.y = y_coordinate;
                 robo_santa = !robo_santa;
-                //printf("Regular Santa ");
 
             } else {
                 robo_x_coordinate--;
                 current_house.x = robo_x_coordinate;
                 current_house.y = robo_y_coordinate;
                 robo_santa = !robo_santa;
-                //printf("Robo Santa ");
 
             }
 
-            //printf("moving to coordinates %d, %d\n", current_house.x, current_house.y);
 
             if(!is_house_visited(houses, current_house, current_houses)) {
                 current_houses++;
                 if(current_houses >= num_houses) {
                     houses = expand_house_array(houses, &num_houses);
                 }
-                //printf("adding house at %d, %d\n", current_house.x, current_house.y);
                 houses[current_houses-1].x = current_house.x;
                 houses[current_houses-1].y = current_house.y;
             }
@@ -227,25 +227,21 @@ int get_num_unique_houses_robo(char* directions, HOUSE * houses, size_t num_hous
                 current_house.x = x_coordinate;
                 current_house.y = y_coordinate;
                 robo_santa = !robo_santa;
-                //printf("Regular Santa ");
 
             } else {
                 robo_x_coordinate++;
                 current_house.x = robo_x_coordinate;
                 current_house.y = robo_y_coordinate;
                 robo_santa = !robo_santa;
-                //printf("Robo Santa ");
 
             }
 
-            //printf("moving to coordinates %d, %d\n", current_house.x, current_house.y);
 
             if(!is_house_visited(houses, current_house, current_houses)) {
                 current_houses++;
                 if(current_houses >= num_houses) {
                     houses = expand_house_array(houses, &num_houses);
                 }
-                //printf("adding house at %d, %d\n", current_house.x, current_house.y);
                 houses[current_houses-1].x = current_house.x;
                 houses[current_houses-1].y = current_house.y;
             }
@@ -256,31 +252,26 @@ int get_num_unique_houses_robo(char* directions, HOUSE * houses, size_t num_hous
                 current_house.x = x_coordinate;
                 current_house.y = y_coordinate;
                 robo_santa = !robo_santa;
-                //printf("Regular Santa ");
 
             } else {
                 robo_y_coordinate++;
                 current_house.x = robo_x_coordinate;
                 current_house.y = robo_y_coordinate;
                 robo_santa = !robo_santa;
-                //printf("Robo Santa ");
 
             }
 
-            //printf("moving to coordinates %d, %d\n", current_house.x, current_house.y);
 
             if(!is_house_visited(houses, current_house, current_houses)) {
                 current_houses++;
                 if(current_houses >= num_houses) {
                     houses = expand_house_array(houses, &num_houses);
                 }
-                //printf("adding house at %d, %d\n", current_house.x, current_house.y);
                 houses[current_houses-1].x = current_house.x;
                 houses[current_houses-1].y = current_house.y;
             }
         }
 
-        //printf("at coordinate %d, %d on direction number %d current number of unique houses %d\n", current_house.x, current_house.y, i+1, current_houses);
 
     }
     

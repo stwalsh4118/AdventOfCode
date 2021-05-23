@@ -10,41 +10,51 @@ bool check_hash(char * key, int num, int num_zeros) {
 
     char result[50];
     char msg[20];
+    
+    //copy our key into a different string 
     strcpy(msg,key);
+
+    //turn our hash number into a string
     sprintf(result, "%d", num);
-    //printf("The string for the num is %s\n", result);
-    //printf("length of num string %d\n", strlen(result));
+
+    //concatenate our key and hash number together so we can get the md5 hash of it
     strncat(msg,result,strlen(result));
+
+    //add a string terminal to the end of our key + hash number string
     msg[strlen(msg)] = '\0';
 
     size_t len = strlen(msg);
-    // printf("key and number %s and length %d\n", msg, len);
     char * leading_zeros;
 
+    //get the md5 hash of our key + number string and return the X leading digits depending on the number of leading zeros we want 
     leading_zeros = md5(msg, len, num_zeros);
     char * all_zeros;
+
+    //depending on how many leading zeros we get the amount of zeros to check the hash against
     if(num_zeros == 5) {
         all_zeros = "00000000000000000000";
 
     } else {
         all_zeros = "000000000000000000000000";
-
     }
-    //printf("first five from hash %s\n", leading_zeros);
 
+    //if the amount of leading zeros in the hash is same as the amount of zeros we want return true
     if(strcmp(leading_zeros,all_zeros) == 0) {
         printf("all zeroes!");
         return true;
     }
 
+    //if the amount of leading zeros in the hash is not the same as the amount of zeros we want return false
     return false;
 }
 
 int find_correct_hash(char * key, int num_zeros) {
     int hash_number = 0;
 
+    //while we havent found the has with the amount of leading zeros that we want
     while(!check_hash(key, hash_number, num_zeros)) { 
-        //printf("current hash number %d\n", hash_number);
+
+        //go to the next hash number and check again
         hash_number++;
     }
 
