@@ -40,7 +40,6 @@ bool check_hash(char * key, int num, int num_zeros) {
 
     //if the amount of leading zeros in the hash is same as the amount of zeros we want return true
     if(strcmp(leading_zeros,all_zeros) == 0) {
-        printf("all zeroes!");
         return true;
     }
 
@@ -73,10 +72,11 @@ int main(int argc, char * argv[]) {
     key = input_string(fp, 16);
 
     printf("%s\n", key);
+    int correct_hash_five_zeros = find_correct_hash(key, 5);
+    int correct_hash_six_zeros = find_correct_hash(key, 6);
 
-    int correct_hash = find_correct_hash(key, 6);
-
-    printf("correct hash %d\n", correct_hash);
+    printf("correct hash with 5 leading zeros %d\n",correct_hash_five_zeros);
+    printf("correct hash with 6 leading zeros %d\n", correct_hash_six_zeros);
 
     free(file_path);
     free(key);
