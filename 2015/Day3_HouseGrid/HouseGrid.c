@@ -17,12 +17,10 @@ bool is_house_visited(HOUSE * houses, HOUSE current_house, size_t num_houses) {
         
         //if the current house is one of the visited houses
         if((houses[i].x == current_house.x) && (houses[i].y == current_house.y)) {
-            //printf("House already visited\n");
             return true;
         }
     }
 
-    //printf("House not already visited\n");
     return false;
 }
 
