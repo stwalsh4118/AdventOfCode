@@ -26,9 +26,8 @@ void extract_dimensions(char *raw_dim, int dimensions[]) {
     }
 }
 
-BOX *create_boxes(int num_boxes) {
+BOX *create_boxes(int num_boxes, FILE* fp) {
 
-    FILE* fp = fopen("boxes.txt", "r");
 
     //allocate memory for each set of dimensions in the file 
     BOX *boxes = (BOX*)malloc(num_boxes * sizeof(BOX));
@@ -145,8 +144,11 @@ int main(int argc, char * argv[]) {
     fclose(fp);
     printf("%d\n",num_boxes);
 
-    boxes = create_boxes(num_boxes);
+    fp = fopen(file_path, "r");
 
+    boxes = create_boxes(num_boxes, fp);
+
+    fclose(fp);
     
     printf("total paper needed %ld\n", calculate_total_paper(boxes, num_boxes));
     printf("total ribbon needed %ld\n", calculate_total_ribbon(boxes, num_boxes));
