@@ -1,3 +1,7 @@
+Insights:
+    This one felt easier than the two previous, probably because I've just been getting better and the skills used were language agnostic
+    Learned more how to parse strings and check characters within the strings
+
 To run program:
 
 Run executable

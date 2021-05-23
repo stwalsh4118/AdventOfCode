@@ -1,3 +1,8 @@
+Insights:
+    Learned more string parsing like splitting strings via a delimiter
+    Learned how to use structs to hold collections of data easier
+    Used the number of lines to dynamically create the exact right size of array to hold all of my boxes
+
 To run program:
 
 Run executable

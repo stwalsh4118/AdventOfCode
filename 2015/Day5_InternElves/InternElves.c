@@ -4,12 +4,6 @@
 #include <stdlib.h>
 #include "../../headers/utils.h"
 
-typedef struct {
-    char one;
-    char two;
-    int index;
-}PAIR;
-
 bool has_x_vowels(char * word, int x) {
     char a = 'a';
     char e = 'e';
