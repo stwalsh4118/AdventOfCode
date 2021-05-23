@@ -314,6 +314,7 @@ int main(int argc, char * argv[]) {
     free(file_path);
     free(directions);
     free(houses);
+    free(houses_robo);
 
     return 0;
 }
