@@ -7,14 +7,32 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <inttypes.h>
  
 // leftrotate function definition
 #define LEFTROTATE(x, c) (((x) << (c)) | ((x) >> (32 - (c))))
  
 // These vars will contain the hash
 uint32_t h0, h1, h2, h3;
+
+char *convert(uint8_t *a)
+{
+  char* buffer2;
+  int i;
+
+  buffer2 = malloc(9);
+  if (!buffer2)
+    return NULL;
+
+  buffer2[8] = 0;
+  for (i = 0; i <= 7; i++)
+    buffer2[7 - i] = (((*a) >> i) & (0x01)) + '0';
+
+
+  return buffer2;
+}
  
-void md5(uint8_t *initial_msg, size_t initial_len) {
+char *md5(uint8_t *initial_msg, size_t initial_len, int num_zeros) {
  
     // Message (to prepare)
     uint8_t *msg = NULL;
@@ -100,7 +118,7 @@ void md5(uint8_t *initial_msg, size_t initial_len) {
 #ifdef ROUNDS
             uint8_t *p;
             //printf("%i: ", i);
-            p=(uint8_t *)&a;
+            p=(uint8_t *)&a; 
             //printf("%2.2x%2.2x%2.2x%2.2x ", p[0], p[1], p[2], p[3], a);
          
             p=(uint8_t *)&b;
@@ -153,45 +171,45 @@ void md5(uint8_t *initial_msg, size_t initial_len) {
         h3 += d;
  
     }
+
+    uint8_t *p;
+
+ 
+    // display result
+    
+    p=(uint8_t *)&h0;
+    char * first_five;
+    if(num_zeros == 5) {
+        first_five = (char *)malloc(21 * sizeof(char));
+        first_five[0] = '\0';
+
+        strncat(first_five, convert(&p[0]), 8);
+        strncat(first_five, convert(&p[1]), 8);
+        strncat(first_five, convert(&p[2]), 4);
+    } else {
+        first_five = (char *)malloc(25 * sizeof(char));
+        first_five[0] = '\0';
+
+        strncat(first_five, convert(&p[0]), 8);
+        strncat(first_five, convert(&p[1]), 8);
+        strncat(first_five, convert(&p[2]), 8);
+    }
+
+    // printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3], h0);
+ 
+    // p=(uint8_t *)&h1;
+    // printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3], h1);
+ 
+    // p=(uint8_t *)&h2;
+    // printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3], h2);
+ 
+    // p=(uint8_t *)&h3;
+    // printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3], h3);
+    // puts("");
  
     // cleanup
     free(msg);
- 
-}
- 
-int main(int argc, char **argv) {
- 
-    if (argc < 2) {
-        printf("usage: %s 'string'\n", argv[0]);
-        return 1;
-    }
- 
-    char *msg = argv[1];
-    size_t len = strlen(msg);
- 
-    // benchmark
-    // int i;
-    // for (i = 0; i < 1000000; i++) {
-        md5(msg, len);
-    // }
- 
-    //var char digest[16] := h0 append h1 append h2 append h3 //(Output is in little-endian)
-    uint8_t *p;
- 
-    // display result
- 
-    p=(uint8_t *)&h0;
-    printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3], h0);
- 
-    p=(uint8_t *)&h1;
-    printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3], h1);
- 
-    p=(uint8_t *)&h2;
-    printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3], h2);
- 
-    p=(uint8_t *)&h3;
-    printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3], h3);
-    puts("");
- 
-    return 0;
+
+    return(first_five);
+    
 }
