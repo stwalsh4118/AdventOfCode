@@ -40,10 +40,12 @@ bool check_hash(char * key, int num, int num_zeros) {
 
     //if the amount of leading zeros in the hash is same as the amount of zeros we want return true
     if(strcmp(leading_zeros,all_zeros) == 0) {
+        free(leading_zeros);
         return true;
     }
 
     //if the amount of leading zeros in the hash is not the same as the amount of zeros we want return false
+    free(leading_zeros);
     return false;
 }
 
