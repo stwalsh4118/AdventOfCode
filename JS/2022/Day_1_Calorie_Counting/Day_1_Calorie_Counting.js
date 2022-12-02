@@ -68,8 +68,9 @@ Elf.readElfData("input.txt", Elves);
 
 const highestCalorieElf = Elf.getHighestCalorieElf(Elves);
 
+//Question 1 Answer
 console.log(highestCalorieElf, highestCalorieElf.calories);
 
 const [highestCalorieElves, totalCalories] = Elf.getHighestCalorieElves(Elves, 3);
-
+//Question 2 Answer
 console.log(highestCalorieElves, totalCalories);
