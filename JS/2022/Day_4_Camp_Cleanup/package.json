@@ -1,0 +1,12 @@
+{
+	"name": "day_4_camp_cleanup",
+	"version": "1.0.0",
+	"description": "",
+	"main": "Day_4_Camp_Cleanup.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"type": "module"
+}
