@@ -1,0 +1,12 @@
+{
+	"name": "day_7_no_space_left_on_device",
+	"version": "1.0.0",
+	"description": "",
+	"main": "Day_7_No_Space_Left_On_Device.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"type": "module"
+}
