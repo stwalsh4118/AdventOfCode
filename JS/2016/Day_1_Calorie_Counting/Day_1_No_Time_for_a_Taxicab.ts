@@ -1,7 +1,9 @@
 import * as fs from "fs";
 
+// type for directions
 type Direction = "N" | "S" | "E" | "W";
 
+//class to hold commands
 class Command {
 	turnDirection: string;
 	distance: number;
@@ -13,6 +15,7 @@ class Command {
 	}
 }
 
+//Taxi class to hold position and direction
 class Taxi {
 	position: {
 		x: number;
@@ -30,6 +33,7 @@ class Taxi {
 		this.direction = "N";
 	}
 
+	//takes input from command and returns direction
 	static transformDirection(direction: Direction, turnDirection: string): Direction {
 		if (turnDirection === "R") {
 			switch (direction) {
@@ -57,18 +61,24 @@ class Taxi {
 	}
 }
 
+//runs commands, returns distance from start and first revisited position
 function executeCommands(input: string): any[] {
 	const taxi = new Taxi();
+	//splits input into commands
 	const commands = input.split(", ").map((command) => new Command(command));
 	const positions = [];
 	const firstRevisitedPosition = [];
 
+	//runs all commands
 	commands.forEach((command) => {
+		//get cardinal direction from command after turning
 		taxi.direction = Taxi.transformDirection(taxi.direction, command.turnDirection);
 
+		//moves taxi
 		for (let i = 0; i < command.distance; i++) {
 			positions.push({ x: taxi.position.x, y: taxi.position.y });
 
+			//checks if taxi has revisited a position
 			if (
 				firstRevisitedPosition.length === 0 &&
 				positions.filter(
@@ -78,6 +88,7 @@ function executeCommands(input: string): any[] {
 				firstRevisitedPosition.push({ x: taxi.position.x, y: taxi.position.y });
 			}
 
+			//moves taxi one unit in direction
 			switch (taxi.direction) {
 				case "N":
 					taxi.position.y += 1;
