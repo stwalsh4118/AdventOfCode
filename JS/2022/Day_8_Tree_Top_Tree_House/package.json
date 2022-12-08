@@ -1,0 +1,15 @@
+{
+	"name": "day_8_tree_top_tree_house",
+	"version": "1.0.0",
+	"description": "",
+	"main": "Day_8_Tree_Top_Tree_House.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"type": "module",
+	"devDependencies": {
+		"@faker-js/faker": "^7.6.0"
+	}
+}
