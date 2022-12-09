@@ -165,8 +165,7 @@ const below100kList = [];
 
 sizeWholeFileTree(fileSystem.fileStructure[0], 100000, below100kList);
 
-//answer to part 1
-console.log(below100kList.reduce((acc, curr) => acc + curr.size, 0));
+console.log(`Answer to part 1: ${below100kList.reduce((acc, curr) => acc + curr.size, 0)}`);
 
 const list = [];
 
@@ -176,14 +175,12 @@ const totalSize = list[0].size;
 
 const sizeToDelete = totalSize - 40000000;
 
-console.log("totalSize", totalSize);
-console.log("sizeToDelete", sizeToDelete);
-
-//answer to part 2
 console.log(
-	list
-		.filter((item) => item.size > sizeToDelete)
-		.reduce(function (prev, curr) {
-			return prev.size < curr.size ? prev : curr;
-		}).size
+	`Answer to part 2: ${
+		list
+			.filter((item) => item.size > sizeToDelete)
+			.reduce(function (prev, curr) {
+				return prev.size < curr.size ? prev : curr;
+			}).size
+	}`
 );

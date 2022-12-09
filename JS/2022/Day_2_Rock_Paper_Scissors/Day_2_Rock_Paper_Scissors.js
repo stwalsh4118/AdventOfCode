@@ -26,7 +26,6 @@ class Rock_Paper_Scissors_Round {
 
 	static getNeededPlay = (opponent, outcome) => {
 		const parsedOutcome = outcome === "X" ? "LOSE" : outcome === "Y" ? "TIE" : "WIN";
-		console.log(opponent, outcome, parsedOutcome);
 
 		if (parsedOutcome === "WIN") {
 			return opponent === "Rock" ? "Paper" : opponent === "Paper" ? "Scissors" : "Rock";
@@ -59,14 +58,11 @@ const neededPlays = Rounds.map((round) =>
 	)
 );
 
-// console.log(neededPlays);
-console.log(Rounds);
 //Question 1 Answer
-console.log(totalPoints);
+console.log(`Answer to part 1: ${totalPoints}`);
 
 neededPlays.forEach((play, i) => (Rounds[i].player2 = play));
-console.log(Rounds);
 
 const totalPoints2 = Rounds.reduce((acc, round) => acc + round.points, 0);
 //Question 2 Answer
-console.log(totalPoints2);
+console.log(`Answer to part 2: ${totalPoints2}`);

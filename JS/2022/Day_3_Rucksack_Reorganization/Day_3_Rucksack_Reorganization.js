@@ -71,12 +71,10 @@ lines.forEach((line) => {
 	Rucksacks.push(new Rucksack(line));
 });
 
-console.log(Rucksacks);
-
 //get total priority of shared items
 const totalPriority = Rucksacks.reduce((acc, rucksack) => acc + rucksack.sharedItemPriority, 0);
 
-console.log(totalPriority);
+console.log(`Answer to part 1: ${totalPriority}`);
 
 const ElfGroups = [];
 
@@ -84,12 +82,9 @@ for (let i = 0; i < Rucksacks.length; i += 3) {
 	ElfGroups.push(new ElfGroup(Rucksacks.slice(i, i + 3)));
 }
 
-console.log(ElfGroups);
-
 //get total priority of badges
 const totalPriorityOfGroups = ElfGroups.reduce((acc, elfGroup) => {
-	// console.log(elfGroup.badge);
 	return acc + Rucksack.getPriorityOfItem(elfGroup.badge);
 }, 0);
 
-console.log(totalPriorityOfGroups);
+console.log(`Answer to part 2: ${totalPriorityOfGroups}`);

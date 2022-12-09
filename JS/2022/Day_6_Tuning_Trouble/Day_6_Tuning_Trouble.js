@@ -41,7 +41,7 @@ class Device {
 
 	checkUniquenessOfMarker(marker, markerLength) {
 		if (marker.length === markerLength) {
-			console.log(marker, [...new Set(marker)]);
+			// console.log(marker, [...new Set(marker)]);
 			return [...new Set(marker)].length === markerLength;
 		} else {
 			return false;
@@ -53,5 +53,6 @@ const data = fs.readFileSync("input.txt", "utf8");
 
 const device = new Device(data);
 
-console.log(device.packetMarkerEnd);
-console.log(device.messageMarkerEnd);
+console.log(`Answer to part 1: ${device.packetMarkerEnd}`);
+
+console.log(`Answer to part 2: ${device.messageMarkerEnd}`);

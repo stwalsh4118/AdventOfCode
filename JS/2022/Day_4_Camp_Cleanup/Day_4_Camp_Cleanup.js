@@ -83,18 +83,15 @@ let elfList = [];
 
 lines.forEach((line) => {
 	const elfGroup = line.split(",").map((elf) => new Elf(elf));
-	console.log(elfGroup);
 	elfGroups.push(new ElfGroup(elfGroup));
 });
-
-console.log(elfGroups);
 
 //get all elf groups that overlap
 const overlappingGroups = elfGroups.filter((group) => group.overlaps);
 
-console.log(overlappingGroups.length);
+console.log(`Answer to part 1: ${overlappingGroups.length}`);
 
 //get all elf groups that partially overlap
 const partiallyOverlappingGroups = elfGroups.filter((group) => group.partialOverlap);
 
-console.log(partiallyOverlappingGroups.length);
+console.log(`Answer to part 2: ${partiallyOverlappingGroups.length}`);

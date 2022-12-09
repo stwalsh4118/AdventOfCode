@@ -34,11 +34,8 @@ class Elf {
 
 	static getHighestCalorieElf = (ElfLine) => {
 		let highestCalorieElf = ElfLine[0];
-		console.log(ElfLine);
 
 		ElfLine.forEach((elf) => {
-			console.log(elf.calories, highestCalorieElf.calories);
-
 			if (elf.calories > highestCalorieElf.calories) {
 				highestCalorieElf = elf;
 			}
@@ -69,8 +66,8 @@ Elf.readElfData("input.txt", Elves);
 const highestCalorieElf = Elf.getHighestCalorieElf(Elves);
 
 //Question 1 Answer
-console.log(highestCalorieElf, highestCalorieElf.calories);
+console.log(`Answer to part 1: ${highestCalorieElf.calories}`);
 
 const [highestCalorieElves, totalCalories] = Elf.getHighestCalorieElves(Elves, 3);
 //Question 2 Answer
-console.log(highestCalorieElves, totalCalories);
+console.log(`Answer to part 2: ${totalCalories}`);

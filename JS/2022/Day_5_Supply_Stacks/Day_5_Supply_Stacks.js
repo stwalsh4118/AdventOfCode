@@ -4,8 +4,8 @@ import * as fs from "fs";
 class ShippingYard {
 	constructor(crateStacks, instructions, model) {
 		this.model = model;
-		this.stacks = crateStacks;
-		this.instructions = instructions;
+		this.stacks = [...crateStacks];
+		this.instructions = [...instructions];
 	}
 
 	//take instructions and perform them
@@ -103,7 +103,11 @@ stacks.forEach((stack) => {
 	stack.reverse();
 });
 
-// console.log(stacks);
+const oldStacks = [];
+
+stacks.forEach((stack) => {
+	oldStacks.push([...stack]);
+});
 
 const instructions = [];
 
@@ -112,6 +116,15 @@ for (let i = instructionStart + 1; i < lines.length; i++) {
 	instructions.push(new Instruction(lines[i]));
 }
 
+const oldShippingYard = new ShippingYard(oldStacks, instructions, 9000);
+
+//perform instructions
+oldShippingYard.performInstructions();
+
+//get the top of each stack
+
+console.log(`Answer to part 1: ${oldShippingYard.getTopOfStacks()}`);
+
 //create shipping yard
 const shippingYard = new ShippingYard(stacks, instructions, 9001);
 
@@ -119,4 +132,5 @@ const shippingYard = new ShippingYard(stacks, instructions, 9001);
 shippingYard.performInstructions();
 
 //get the top of each stack
-console.log(shippingYard.getTopOfStacks());
+
+console.log(`Answer to part 2: ${shippingYard.getTopOfStacks()}`);

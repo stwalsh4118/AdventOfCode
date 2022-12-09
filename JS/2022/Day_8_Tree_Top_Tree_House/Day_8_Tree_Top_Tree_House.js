@@ -31,7 +31,7 @@ class Forest {
 			}
 		}
 
-		console.log("GETTING SCENIC SCORES");
+		// console.log("GETTING SCENIC SCORES");
 
 		for (let i = 0; i < this.height; i++) {
 			for (let j = 0; j < this.width; j++) {
@@ -186,7 +186,7 @@ class Forest {
 	}
 
 	static checkIfTallerThanPreviousTrees(previousTrees, tree) {
-		console.log(previousTrees.map((tree) => tree.height));
+		// console.log(previousTrees.map((tree) => tree.height));
 		if (previousTrees.length === 0) {
 			// console.log(" + NO PREVIOUS TREES, ACCEPTING TREE");
 			return "accept";
@@ -211,4 +211,6 @@ const treeLines = fs.readFileSync("input.txt", "utf-8").split("\n");
 
 const forest = new Forest(treeLines);
 
-console.log(forest);
+console.log(`Answer to part 1: Number of trees visible ${forest.numVisibleTrees}`);
+
+console.log(`Answer to part 2: Scenic Score of the best tree ${forest.bestScenicScore}`);
