@@ -1,8 +1,8 @@
 {
-	"name": "day_1_no_time_for_a_taxicab",
+	"name": "day_3_squares_with_three_sides",
 	"version": "1.0.0",
 	"description": "",
-	"main": "Day_1_No_Time_for_a_Taxicab.js",
+	"main": "Day_3_Squares_With_Three_Sides.ts",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
